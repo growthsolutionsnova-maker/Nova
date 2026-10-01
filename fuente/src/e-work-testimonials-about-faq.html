@@ -1,0 +1,267 @@
+
+<style>
+/* ============ WORK / CASE STUDIES ============ */
+.cases{display:grid;gap:var(--s-4)}
+.case{display:grid;gap:var(--s-4);align-items:center;padding:clamp(20px,3vw,40px);border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-1)}
+@media (min-width:1024px){.case{grid-template-columns:1fr 1fr;gap:var(--s-6)}.case--flip .case__media{order:-1}}
+.cases>*,.case>*{min-width:0}
+.case--feature{background:var(--inverse-bg);color:var(--inverse-text);border-color:rgba(201,169,106,.3)}
+.case__tag{display:inline-flex;gap:8px;align-items:center;font-size:.75rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-text)}
+.case--feature .case__tag{color:var(--gold-400)}
+.case h3{font-size:var(--fs-h3);margin:10px 0 4px}
+.case--feature h3{color:#FBF7F0}
+.case__loc{display:flex;align-items:center;gap:6px;font-size:var(--fs-small);color:var(--text-muted)}
+.case--feature .case__loc{color:var(--inverse-muted)}
+.case__loc svg{width:15px;height:15px}
+.psr{list-style:none;padding:0;display:grid;gap:0;margin-top:var(--s-3)}
+.psr li{display:grid;grid-template-columns:92px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--border);font-size:var(--fs-small)}
+.case--feature .psr li{border-color:rgba(201,169,106,.2)}
+.psr b{font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);padding-top:2px}
+.case--feature .psr b{color:var(--inverse-muted)}
+.psr li:last-child b{color:var(--accent-text)}
+.case--feature .psr li:last-child b{color:var(--gold-400)}
+.psr li:last-child span{font-weight:600}
+.big-result{display:flex;align-items:baseline;gap:14px;margin-top:var(--s-3);font-family:var(--font-display);font-weight:600;letter-spacing:-.04em;line-height:1}
+.big-result .from{font-size:clamp(2rem,1.4rem + 2vw,3rem);color:var(--inverse-muted);text-decoration:line-through;text-decoration-color:rgba(201,169,106,.6);text-decoration-thickness:3px}
+.big-result .to{font-size:clamp(3.5rem,2.4rem + 4vw,6rem);color:var(--gold-400)}
+.big-result .arrow{font-size:2rem;color:var(--gold-500)}
+.case__tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--s-3)}
+.case__tags span{padding:6px 12px;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);font-size:.8125rem;font-weight:500}
+.case__link{margin-top:var(--s-2)}
+
+/* Device frames */
+.case__media{position:relative;padding-bottom:28px}
+.browser{border-radius:10px;overflow:hidden;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-3);transition:transform var(--t-slow) var(--ease)}
+.case:hover .browser{transform:translateY(-4px)}
+.browser__bar{display:flex;align-items:center;gap:6px;padding:10px 12px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+.browser__bar i{width:9px;height:9px;border-radius:50%;background:var(--border-strong)}
+.browser__url{margin-left:10px;flex:1;padding:4px 12px;border-radius:99px;background:var(--surface);font-size:.6875rem;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot{display:block;position:relative;aspect-ratio:16/10;background:var(--surface-2);cursor:zoom-in;overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.shot--img{aspect-ratio:auto}.shot--img img{height:auto}
+.phone .shot{aspect-ratio:9/16}
+.shot::after{content:"";position:absolute;inset:0;background:rgba(7,26,51,0);transition:background-color var(--t-med)}.shot:hover::after{background:rgba(7,26,51,.12)}
+.shot__ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:10px;padding:24px;text-align:center;background:repeating-linear-gradient(135deg,transparent 0 14px,color-mix(in srgb,var(--gold-500) 6%,transparent) 14px 15px),var(--surface-2)}
+.shot__ph b{font-family:var(--font-display);font-size:1.25rem;letter-spacing:-.02em}
+.shot__ph span{font-size:.75rem;color:var(--text-muted)}
+.phone{position:absolute;right:-8px;bottom:0;width:24%;min-width:92px;border-radius:18px;padding:6px;background:var(--navy-900);box-shadow:var(--shadow-3);transition:transform var(--t-slow) var(--ease)}
+.case:hover .phone{transform:translateY(-10px) rotate(-2deg)}
+.phone .shot{aspect-ratio:9/19;border-radius:13px}
+.phone .shot__ph b{font-size:.75rem}
+/* Avanti board mock */
+.board{border-radius:12px;overflow:hidden;border:1px solid rgba(201,169,106,.3);background:rgba(255,255,255,.03);box-shadow:0 30px 60px rgba(0,0,0,.3)}
+.board__head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(201,169,106,.2);font-size:.8125rem;color:var(--sand)}
+.board__head b{font-weight:600}
+.board__done{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:rgba(111,207,151,.14);color:#8FE0B0;font-size:.6875rem;font-weight:600}
+.board__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px}
+.board__col{display:grid;gap:8px;align-content:start}
+.board__col>span{font-size:.625rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--inverse-muted)}
+.room{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px 10px;border-radius:6px;background:rgba(245,239,227,.06);border-left:2px solid var(--gold-500);font-size:.6875rem;color:var(--sand)}
+.room em{font-style:normal;color:var(--gold-400)}
+.js .room{opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease),transform .4s var(--ease);transition-delay:calc(var(--n) * 80ms + 300ms)}
+.js .is-in .room{opacity:1;transform:none}
+.case__note{margin-top:var(--s-6);text-align:center;font-size:var(--fs-small);color:var(--text-muted)}
+
+
+/* Presence + social visuals (no screenshots) */
+.pres{position:relative;padding-bottom:40px}
+.lang-tog{display:inline-flex;margin-left:8px;border:1px solid var(--border);border-radius:99px;overflow:hidden;font-size:.625rem}
+.lang-tog>*{padding:3px 8px}.lang-tog b{background:var(--navy-800);color:var(--sand)}
+.wire{padding:18px;display:grid;gap:14px;background:var(--surface)}
+.wire__hero{display:grid;gap:8px;padding:22px;border-radius:8px;background:linear-gradient(135deg,#1F3B2B,#2F5A3F);justify-items:start}
+.wire__hero i{height:10px;border-radius:4px;background:rgba(255,255,255,.75)}.wire__hero .w60{width:60%;height:14px}.wire__hero .w40{width:40%;opacity:.6}
+.wire__btn{margin-top:6px;padding:6px 12px;border-radius:4px;background:#F2C14E;color:#1F2A1F;font-size:.6875rem;font-weight:700}
+.wire__cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.wire__cards i{height:54px;border-radius:6px;background:var(--surface-2);border:1px solid var(--border)}
+.mapcard{position:absolute;right:-10px;bottom:0;width:min(62%,300px);border-radius:12px;overflow:hidden;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-3);transition:transform var(--t-slow) var(--ease)}
+.case:hover .mapcard{transform:translateY(-8px)}
+.mapcard__map{position:relative;height:72px;background:linear-gradient(90deg,transparent 48%,rgba(201,169,106,.35) 48% 52%,transparent 52%),linear-gradient(0deg,transparent 45%,rgba(255,255,255,.7) 45% 55%,transparent 55%),#DCE6D5}
+@media (prefers-color-scheme:dark){.mapcard__map{background:linear-gradient(90deg,transparent 48%,rgba(201,169,106,.35) 48% 52%,transparent 52%),linear-gradient(0deg,transparent 45%,rgba(255,255,255,.12) 45% 55%,transparent 55%),#1D3A33}}
+.mapcard__pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-70%);width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#D93025;color:#fff;box-shadow:0 4px 10px rgba(0,0,0,.25);animation:pinBob 2.4s var(--ease) infinite}
+.mapcard__pin svg{width:16px;height:16px}
+@keyframes pinBob{50%{transform:translate(-50%,-90%)}}
+.mapcard__body{padding:12px 14px;display:grid;gap:2px;font-size:.75rem}
+.mapcard__body b{font-size:.8125rem}.mapcard__body>span{color:var(--text-muted)}
+.mapcard__btns{display:flex;gap:6px;margin-top:8px}
+.mapcard__btns span{padding:4px 9px;border-radius:99px;border:1px solid var(--border);color:#1A73E8;font-weight:600;font-size:.6875rem}
+@media (prefers-color-scheme:dark){.mapcard__btns span{color:#8AB4F8}}
+.social{max-width:360px;margin-inline:auto;border-radius:14px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-3);padding:16px;display:grid;gap:14px}
+.social__head{display:flex;align-items:center;gap:12px;font-size:.8125rem}
+.social__head div{flex:1;display:grid}.social__head div span{font-size:.75rem;color:var(--text-muted)}
+.social__avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;background:linear-gradient(135deg,#8C8C88,#5E5E5A);box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--gold-500)}
+.social__follow{padding:6px 14px;border-radius:6px;background:var(--navy-800);color:var(--sand);font-size:.75rem;font-weight:600}
+@media (prefers-color-scheme:dark){.social__follow{background:var(--gold-500);color:var(--navy-900)}}
+.social__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.social__grid i{position:relative;aspect-ratio:1;border-radius:4px;display:grid;place-items:center;color:rgba(255,255,255,.9);background:linear-gradient(calc(var(--n) * 40deg + 120deg),#BDB8AE,#8F8A80 60%,#6F6A62)}
+.social__grid i:nth-child(3n+2){background:linear-gradient(140deg,#D9CBB0,#B59C74)}
+.social__grid i svg{width:22px;height:22px}
+.js .social__grid i{opacity:0;transform:scale(.9);transition:opacity .4s var(--ease),transform .4s var(--ease);transition-delay:calc(var(--n) * 70ms + 300ms)}
+.js .is-in .social__grid i{opacity:1;transform:none}
+.social__cal{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--text-muted)}
+.social__cal div{display:flex;gap:5px}
+.social__cal b,.social__cal em{width:14px;height:14px;border-radius:3px;background:var(--gold-500)}
+.social__cal em{background:var(--border)}
+
+/* ============ LIGHTBOX ============ */
+.lb{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:clamp(16px,4vw,64px);background:rgba(4,14,28,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity var(--t-med) var(--ease),visibility var(--t-med)}
+.lb.is-open{opacity:1;visibility:visible}
+.lb img{max-width:100%;max-height:82vh;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.5);transform:scale(.96);transition:transform var(--t-slow) var(--ease)}
+.lb.is-open img{transform:none}
+.lb__cap{max-width:none;position:absolute;left:0;right:0;bottom:24px;text-align:center;color:var(--sand);font-size:var(--fs-small)}
+.lb__btn{position:absolute;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:rgba(245,239,227,.1);color:var(--sand);border:1px solid rgba(245,239,227,.2);transition:background-color var(--t-fast)}
+.lb__btn:hover{background:rgba(201,169,106,.3)}
+.lb__btn svg{width:22px;height:22px}
+.lb__close{top:20px;right:20px}.lb__prev{left:20px;top:50%;transform:translateY(-50%) rotate(180deg)}.lb__next{right:20px;top:50%;transform:translateY(-50%)}
+
+/* ============ TESTIMONIALS ============ */
+.tcar{position:relative;overflow:hidden}
+.tcar__track{display:flex;transition:transform 600ms var(--ease)}
+.tcard{flex:0 0 100%;padding:clamp(24px,4vw,56px);display:grid;gap:var(--s-3);justify-items:center;text-align:center}
+.tcard .stars{font-size:1.25rem;letter-spacing:4px}
+.tcard blockquote{font-family:var(--font-serif);font-style:italic;font-size:clamp(1.375rem,1.1rem + 1vw,2rem);line-height:1.35;max-width:32ch}
+.tcard figcaption{display:flex;align-items:center;gap:12px;text-align:left;font-size:var(--fs-small)}
+.avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--navy-800);color:var(--gold-400);font-weight:600}
+.tcar__dots{display:flex;justify-content:center;gap:8px}
+.tcar__dots button{width:44px;height:44px;display:grid;place-items:center}
+.tcar__dots button::before{content:"";width:8px;height:8px;border-radius:99px;background:var(--border-strong);transition:width var(--t-med) var(--ease),background-color var(--t-med)}
+.tcar__dots button[aria-current=true]::before{width:28px;background:var(--gold-500)}
+
+/* ============ ABOUT ============ */
+.about{display:grid;gap:var(--s-8);align-items:center}
+@media (min-width:1024px){.about{grid-template-columns:.9fr 1.1fr}}
+.founders{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2)}
+.founder{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:3/4;background:linear-gradient(165deg,var(--navy-600),var(--navy-900));isolation:isolate}
+.founder:nth-child(2){margin-top:var(--s-8)}
+.founder::before{content:"";position:absolute;top:-20%;right:18%;width:14%;height:140%;background:linear-gradient(180deg,transparent,rgba(201,169,106,.45),transparent);transform:skewX(-24deg);z-index:-1}
+.founder img{width:100%;height:100%;object-fit:cover}
+.founder__mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-serif);font-style:italic;font-size:clamp(3rem,2rem + 4vw,5.5rem);color:var(--gold-400);opacity:.9}
+.founder__info{position:absolute;left:0;right:0;bottom:0;padding:18px;background:linear-gradient(transparent,rgba(4,14,28,.85));color:var(--sand)}
+.founder__info b{display:block;font-family:var(--font-display);font-size:1.0625rem;font-weight:600}
+.founder__info span{font-size:.75rem;color:var(--gold-400);letter-spacing:.06em}
+.founders__plus{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--gold-500);color:var(--navy-900);font-size:1.5rem;font-weight:600;box-shadow:0 0 0 8px var(--bg)}
+.about__copy{display:grid;gap:var(--s-3)}
+.skills{display:grid;gap:var(--s-2);grid-template-columns:1fr}
+@media (min-width:600px){.skills{grid-template-columns:1fr 1fr}}
+.skill{padding:var(--s-3);border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface)}
+.skill b{display:block;font-family:var(--font-display);font-size:1rem;margin-bottom:10px}
+.skill div{display:flex;flex-wrap:wrap;gap:6px}
+.skill div span{padding:4px 10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--border);font-size:.75rem}
+.about__eq{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--font-display);font-size:var(--fs-h5);font-weight:600}
+.about__eq i{font-style:normal;color:var(--accent-text)}
+
+/* ============ FAQ ============ */
+.faq{display:grid;gap:var(--s-6)}
+@media (min-width:1024px){.faq{grid-template-columns:.8fr 1.2fr;gap:var(--s-12)}.faq__head{position:sticky;top:120px;align-self:start}}
+.faq__head{display:grid;gap:var(--s-3)}
+.faq__help{display:flex;gap:16px;align-items:center;padding:var(--s-3);border-radius:var(--r-md);background:var(--surface);border:1px solid var(--border)}
+.faq__help svg{width:36px;height:36px;color:#25D366;flex-shrink:0}
+.faq__help b{display:block;font-size:.9375rem}
+.faq__help a{font-size:var(--fs-small);color:var(--accent-text);font-weight:600}
+.acc{border-top:1px solid var(--border)}
+.acc details{border-bottom:1px solid var(--border)}
+.acc summary{display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:72px;padding:18px 0;cursor:pointer;list-style:none;font-family:var(--font-display);font-size:var(--fs-h5);font-weight:600;letter-spacing:-.01em;transition:color var(--t-fast)}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary:hover{color:var(--accent-text)}
+.acc summary i{position:relative;flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid var(--border-strong);transition:transform var(--t-med) var(--ease),background-color var(--t-med),border-color var(--t-med)}
+.acc summary i::before,.acc summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:currentColor;transform:translate(-50%,-50%)}
+.acc summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.acc details[open] summary i{transform:rotate(135deg);background:var(--gold-500);border-color:var(--gold-500);color:var(--navy-900)}
+.acc__body{overflow:hidden}
+.acc__body p{padding:0 56px 24px 0;color:var(--text-muted)}
+</style>
+
+<!-- ============ WORK ============ -->
+<section class="section" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our work</span>
+      <h2 id="work-title">Real businesses. <span class="serif accent">Real systems.</span></h2>
+    </div>
+
+    <div class="cases">
+      <!-- Case 1: Resort (featured) -->
+      <article class="case case--feature reveal">
+        <div>
+          <span class="case__tag">Custom Software · Automation</span>
+          <h3>Housekeeping, on autopilot</h3>
+          <div class="case__loc"><svg aria-hidden="true"><use href="#i-pin"/></svg>International resort · Orlando, FL</div>
+          <div class="big-result" aria-label="From 4 hours to 5 minutes"><span class="from">4h</span><span class="arrow">→</span><span class="to"><span data-count="5">5</span>m</span></div>
+          <ul class="psr" role="list">
+            <li><b>Problem</b><span>Assigning housekeepers to rooms took about 4 hours by hand, every day.</span></li>
+            <li><b>Solution</b><span>A custom assignment system built around how the team actually works.</span></li>
+            <li><b>Result</b><span>The daily process now takes 5 minutes.</span></li>
+          </ul>
+        </div>
+        <div class="case__media" aria-hidden="true">
+          <div class="board">
+            <div class="board__head"><b>Today · Housekeeping</b><span class="board__done">✓ All rooms assigned · 5 min</span></div>
+            <div class="board__grid">
+              <div class="board__col"><span>Floor 1</span><div class="room" style="--n:0">101 <em>Checkout</em></div><div class="room" style="--n:1">104 <em>Stay</em></div><div class="room" style="--n:2">118 <em>Deep</em></div></div>
+              <div class="board__col"><span>Floor 2</span><div class="room" style="--n:3">204 <em>Checkout</em></div><div class="room" style="--n:4">211 <em>Stay</em></div><div class="room" style="--n:5">226 <em>Checkout</em></div></div>
+              <div class="board__col"><span>Floor 3</span><div class="room" style="--n:6">305 <em>Stay</em></div><div class="room" style="--n:7">311 <em>Checkout</em></div><div class="room" style="--n:8">330 <em>Deep</em></div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case 2: Tree service -->
+      <article class="case case--flip reveal">
+        <div>
+          <span class="case__tag">Digital Presence</span>
+          <h3>Cheap &amp; Great Tree Services</h3>
+          <div class="case__loc"><svg aria-hidden="true"><use href="#i-pin"/></svg>Charlotte &amp; Winston-Salem, NC · Serving NC &amp; SC</div>
+          <ul class="psr" role="list">
+            <li><b>Built</b><span>Bilingual website, Google Maps profile and social media content.</span></li>
+            <li><b>Result</b><span>A professional digital presence, easy to find on Google and Maps.</span></li>
+          </ul>
+          <div class="case__tags"><span>Website EN/ES</span><span>Google Maps</span><span>Social media</span></div>
+          <div class="case__link"><a class="link-arrow" href="https://cheapandgreattreeservicesnc.com/" target="_blank" rel="noopener">Visit the live site <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        </div>
+        <div class="case__media">
+          <div class="browser">
+            <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser__url">cheapandgreattreeservicesnc.com</span></div>
+            <a class="shot shot--img" href="#" data-lightbox="work" data-caption="Cheap &amp; Great Tree Services · desktop" aria-label="Enlarge desktop screenshot of the Cheap &amp; Great Tree Services website">
+              <img src="{{IMG_TREE_D}}" width="1000" height="476" loading="lazy" decoding="async" alt="Cheap &amp; Great Tree Services website homepage on desktop, designed by NOVA">
+            </a>
+          </div>
+          <div class="phone"><a class="shot" href="#" data-lightbox="work" data-caption="Cheap &amp; Great Tree Services · mobile" aria-label="Enlarge mobile screenshot of the Cheap &amp; Great Tree Services website"><img src="{{IMG_TREE_M}}" width="360" height="604" loading="lazy" decoding="async" alt="Cheap &amp; Great Tree Services website on a phone"></a></div>
+        </div>
+      </article>
+
+      <!-- Case 3: Concrete -->
+      <article class="case reveal">
+        <div>
+          <span class="case__tag">Social Media · Digital Presence</span>
+          <h3>Alegría Concrete</h3>
+          <div class="case__loc"><svg aria-hidden="true"><use href="#i-pin"/></svg>Orlando, FL</div>
+          <ul class="psr" role="list">
+            <li><b>Built</b><span>Website, Google Maps profile and social media content.</span></li>
+            <li><b>Result</b><span>An active, consistent social media presence.</span></li>
+          </ul>
+          <div class="case__tags"><span>Website</span><span>Google Maps</span><span>Social media</span></div>
+          <div class="case__link"><a class="link-arrow" href="https://www.alegriaconcrete.com/en/" target="_blank" rel="noopener">Visit the live site <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        </div>
+        <div class="case__media">
+          <div class="browser">
+            <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser__url">alegriaconcrete.com</span></div>
+            <a class="shot shot--img" href="#" data-lightbox="work" data-caption="Alegría Concrete · desktop" aria-label="Enlarge desktop screenshot of the Alegría Concrete website">
+              <img src="{{IMG_ALEGRIA_D}}" width="1000" height="466" loading="lazy" decoding="async" alt="Alegría Concrete website homepage on desktop, designed by NOVA">
+            </a>
+          </div>
+          <div class="phone"><a class="shot" href="#" data-lightbox="work" data-caption="Alegría Concrete · mobile" aria-label="Enlarge mobile screenshot of the Alegría Concrete website"><img src="{{IMG_ALEGRIA_M}}" width="360" height="558" loading="lazy" decoding="async" alt="Alegría Concrete website on a phone"></a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Lightbox (used by Work screenshots) -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <img alt="">
+  <p class="lb__cap"></p>
+  <button class="lb__btn lb__close" type="button" aria-label="Close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+  <button class="lb__btn lb__prev" type="button" aria-label="Previous image"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+  <button class="lb__btn lb__next" type="button" aria-label="Next image"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+</div>

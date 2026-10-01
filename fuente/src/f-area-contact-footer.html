@@ -1,0 +1,279 @@
+
+<style>
+/* ============ SERVICE AREA ============ */
+.area{display:grid;gap:var(--s-8);align-items:center}
+@media (min-width:1024px){.area{grid-template-columns:1fr 1fr}}
+.radar{position:relative;max-width:520px;width:100%;margin-inline:auto;aspect-ratio:1}
+.radar svg{width:100%;height:100%;overflow:hidden}
+.radar .ring{fill:none;stroke:var(--border-strong);stroke-width:1}
+.radar .ring--dash{stroke-dasharray:3 6}
+.radar .sweep{transform-origin:250px 250px;animation:sweep 8s linear infinite}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.radar .city circle{fill:var(--navy-800)}
+@media (prefers-color-scheme:dark){.radar .city circle{fill:var(--sand)}}
+.radar .city text{font:600 13px var(--font-body);fill:var(--text)}
+.radar .hq circle.core{fill:var(--gold-500)}
+.radar .hq circle.pulse{fill:none;stroke:var(--gold-500);stroke-width:2;transform-origin:250px 250px;animation:hqPulse 2.4s var(--ease) infinite}
+@keyframes hqPulse{0%{transform:scale(.4);opacity:1}100%{transform:scale(2.4);opacity:0}}
+.radar .hq text{font:700 15px var(--font-display);fill:var(--text)}
+.radar__label{font:600 10px var(--font-body);letter-spacing:.18em;fill:var(--text-muted);text-transform:uppercase}
+.js .radar .city{opacity:0;transition:opacity .5s var(--ease);transition-delay:calc(var(--n) * 90ms + 300ms)}
+.js .radar.is-in .city{opacity:1}
+.area__copy{display:grid;gap:var(--s-3)}
+.area>*{min-width:0}
+.reach{display:grid;gap:8px;grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:599px){.reach div{padding:14px 10px}.reach b{font-size:1.125rem}.reach span{font-size:.75rem}}
+.reach div{padding:var(--s-3);border-radius:var(--r-md);background:var(--surface);border:1px solid var(--border)}
+.reach b{display:block;font-family:var(--font-display);font-size:1.75rem;letter-spacing:-.03em;line-height:1.1}
+.reach b em{font-style:normal;color:var(--accent-text)}
+.reach span{display:block;margin-top:6px;font-size:.8125rem;line-height:1.4;color:var(--text-muted)}
+.cities{display:flex;flex-wrap:wrap;gap:8px}
+.cities span{padding:6px 12px;border-radius:99px;border:1px solid var(--border);font-size:.8125rem;background:var(--surface)}
+
+/* ============ CONTACT (final CTA + form) ============ */
+.contact{position:relative;overflow:hidden;isolation:isolate}
+.contact::before{content:"";position:absolute;top:-20%;right:4%;width:56px;height:140%;background:linear-gradient(180deg,transparent,rgba(201,169,106,.3),transparent);transform:skewX(-24deg);z-index:-1}
+.contact__grid{display:grid;gap:var(--s-8);align-items:start}
+@media (min-width:1024px){.contact__grid{grid-template-columns:.9fr 1.1fr;gap:var(--s-12)}}
+.contact__copy{display:grid;gap:var(--s-3)}
+.contact__copy h2{color:#FBF7F0;font-size:clamp(2.25rem,1.6rem + 2.6vw,3.75rem)}
+.contact__list{list-style:none;padding:0;display:grid;gap:10px;margin-top:var(--s-2)}
+.contact__list a,.contact__list div{display:flex;align-items:center;gap:14px;min-height:56px;padding:10px 16px;border-radius:var(--r-md);border:1px solid rgba(201,169,106,.2);background:rgba(255,255,255,.03);text-decoration:none;color:var(--sand);transition:border-color var(--t-fast),background-color var(--t-fast),transform var(--t-fast) var(--ease)}
+.contact__list a:hover{border-color:var(--gold-500);background:rgba(201,169,106,.08);transform:translateX(4px)}
+.contact__list svg{width:20px;height:20px;color:var(--gold-400);flex-shrink:0}
+.contact__list small{display:block;font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--inverse-muted)}
+.contact__list b{font-weight:500}
+
+.form{position:relative;border-radius:var(--r-lg);background:var(--surface);color:var(--text);padding:clamp(24px,3.5vw,44px);box-shadow:0 40px 80px rgba(0,0,0,.35)}
+.form__head{margin-bottom:var(--s-3)}
+.form__head h3{font-size:var(--fs-h4)}
+.form__head p{font-size:var(--fs-small);color:var(--text-muted);margin-top:6px}
+.form__grid{display:grid;gap:var(--s-2);grid-template-columns:1fr}
+@media (min-width:600px){.form__grid{grid-template-columns:1fr 1fr}.f--full{grid-column:1/-1}}
+.f{display:grid;gap:6px;align-content:start}
+.f label,.f legend{font-size:.8125rem;font-weight:600}
+.f>label>span,.f>legend>span{color:var(--error)}
+.f input,.f select,.f textarea{width:100%;min-height:50px;padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--border-strong);background:var(--surface-2);font-size:1rem;transition:border-color var(--t-fast),box-shadow var(--t-fast),background-color var(--t-fast)}
+.f textarea{min-height:110px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--gold-500);box-shadow:0 0 0 4px rgba(201,169,106,.2);background:var(--surface)}
+.f.is-invalid input,.f.is-invalid select{border-color:var(--error);box-shadow:0 0 0 3px rgba(179,38,30,.12)}
+.f.is-valid input{border-color:var(--success)}
+@media (prefers-color-scheme:dark){.f.is-valid input{border-color:#6FCF97}}
+.f__err{font-size:.75rem;color:var(--error);min-height:0}
+@media (prefers-color-scheme:dark){.f__err,.f>label>span{color:#FF8A80}}
+fieldset.f{border:0;padding:0;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chips label{position:relative;cursor:pointer}
+.chips input{position:absolute;opacity:0;width:1px;height:1px}
+.chips span{color:var(--text);display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:99px;border:1px solid var(--border-strong);font-size:.875rem;font-weight:500;transition:all var(--t-fast) var(--ease)}
+.chips span::before{content:"";width:14px;height:14px;border-radius:4px;border:1.5px solid var(--border-strong);transition:all var(--t-fast)}
+.chips input:checked+span{border-color:var(--gold-500);background:color-mix(in srgb,var(--gold-500) 14%,var(--surface))}
+.chips input:checked+span::before{background:var(--gold-500) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='m3.5 7 2.5 2.5L10.5 4.5' fill='none' stroke='%23071A33' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/14px;border-color:var(--gold-500)}
+.chips input:focus-visible+span{outline:2px solid var(--gold-500);outline-offset:2px}
+.form__leak{display:none;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-md);background:color-mix(in srgb,var(--gold-500) 12%,var(--surface));font-size:.8125rem}
+.form__leak.is-on{display:flex}
+.form__foot{display:grid;gap:12px;margin-top:var(--s-3)}
+.form__foot small{font-size:.75rem;color:var(--text-muted);text-align:center}
+.btn__spin{display:none;width:18px;height:18px;border-radius:50%;border:2px solid rgba(245,239,227,.3);border-top-color:var(--sand);animation:spin .8s linear infinite}
+.is-loading .btn__spin{display:inline-block}.is-loading .btn__label svg{display:none}
+.is-loading{pointer-events:none;opacity:.85}
+@keyframes spin{to{transform:rotate(360deg)}}
+.form__status{font-size:.875rem;text-align:center}
+.form__status.is-error{color:var(--error)}
+.form__done{display:none;text-align:center;padding:var(--s-6) var(--s-2);gap:var(--s-2);justify-items:center}
+.form.is-sent .form__done{display:grid}.form.is-sent form{display:none}
+.form__check{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:var(--gold-500);color:var(--navy-900)}
+.form__check svg{width:34px;height:34px}
+.form__check path{stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw .6s .2s var(--ease) forwards}
+@keyframes checkDraw{to{stroke-dashoffset:0}}
+.hp{position:absolute!important;left:-9999px!important}
+
+
+/* Growth Plan section extras */
+.anchor{position:relative;top:-100px;display:block;height:0}
+.contact .areas{margin-top:4px}
+.contact .spots{margin-top:4px}
+.leak-open{justify-self:start;color:var(--sand);border-color:rgba(201,169,106,.55)}
+.contact .contact__list{grid-template-columns:1fr}
+@media (min-width:600px){.contact .contact__list{grid-template-columns:1fr 1fr}}
+.contact .contact__list b{font-size:.875rem;overflow-wrap:anywhere}
+.contact .areas li{padding:10px 0}
+.founders-line{font-size:var(--fs-small);color:var(--inverse-muted)}.founders-line b{color:#FBF7F0;font-weight:600}
+.leak-modal{position:fixed;inset:0;z-index:210;display:grid;place-items:center;padding:16px;background:rgba(4,14,28,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;transition:opacity var(--t-med) var(--ease)}
+.leak-modal.is-open{opacity:1}
+.leak-modal__box{position:relative;width:min(560px,100%);max-height:92vh;overflow:auto}
+.leak-modal__close{position:absolute;top:10px;right:10px;z-index:2;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;color:var(--text)}
+.leak-modal__close svg{width:20px;height:20px}
+.leak-modal .quiz__head{padding-right:60px}
+
+/* ============ FOOTER ============ */
+.footer{background:var(--navy-800);color:var(--navy-300);padding-top:var(--s-12);font-size:var(--fs-small)}
+
+.footer__top{display:grid;gap:var(--s-6);padding-bottom:var(--s-8);border-bottom:1px solid rgba(201,169,106,.18)}
+.footer__top{grid-template-columns:1fr 1fr}.footer__top>:first-child,.footer__top>:last-child{grid-column:1/-1}
+@media (min-width:768px){.footer__top{grid-template-columns:1.4fr 1fr 1fr 1.2fr}.footer__top>:first-child,.footer__top>:last-child{grid-column:auto}}
+.footer .logo{color:var(--sand)}
+.footer .logo__img{width:210px}
+.footer .logo__sub{font-size:7.75px}
+.footer__tag{margin-top:var(--s-3);font-size:.75rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-400)}
+.footer__about{margin-top:12px;max-width:34ch}
+.footer h2{font-family:var(--font-body);font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--sand);margin-bottom:var(--s-2)}
+.footer ul{list-style:none;padding:0;display:grid;gap:4px}
+.footer a{text-decoration:none;display:inline-flex;align-items:center;min-height:36px;transition:color var(--t-fast)}
+.footer a:hover{color:var(--gold-400)}
+.footer__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:var(--s-3);font-size:.8125rem}
+.footer__bottom nav{display:flex;flex-wrap:wrap;gap:4px 20px}
+
+/* ============ FLOATING ACTIONS ============ */
+.wa-float{position:fixed;right:24px;bottom:24px;z-index:90;display:none;align-items:center;gap:10px;height:56px;padding:0 20px 0 16px;border-radius:99px;background:#0F7A3F;color:#fff;font-weight:600;font-size:.9375rem;text-decoration:none;box-shadow:0 12px 30px rgba(15,122,63,.35);transition:transform var(--t-med) var(--ease),box-shadow var(--t-med)}
+.wa-float:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(15,122,63,.45)}
+.wa-float svg{width:26px;height:26px}
+.footer .wa-float{display:none;min-height:0;color:#fff}
+@media (min-width:768px){.wa-float,.footer .wa-float{display:inline-flex}}
+.footer .wa-float:hover{color:#fff}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:90;display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--navy-900) 94%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid rgba(201,169,106,.25);transform:translateY(110%);transition:transform var(--t-slow) var(--ease)}
+.mbar.is-on{transform:none}
+.no-js .mbar{transform:none}
+.mbar a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:var(--r-sm);font-size:.8125rem;font-weight:600;text-decoration:none;color:var(--sand);border:1px solid rgba(245,239,227,.25)}
+.mbar a svg{width:18px;height:18px}
+.mbar a.mbar__wa{color:#fff;background:#0F7A3F;border-color:#0F7A3F}
+.mbar a.mbar__cta{background:var(--gold-500);color:var(--navy-900);border-color:var(--gold-500)}
+@media (min-width:768px){.mbar{display:none}}
+@media (max-width:767px){body{padding-bottom:76px}}
+</style>
+
+
+
+<!-- ============ CONTACT: FINAL CTA + FORM ============ -->
+<section class="section section--inverse contact" id="growth-plan" aria-labelledby="contact-title">
+  <div class="container contact__grid">
+    <div class="contact__copy reveal">
+      <span id="contact" class="anchor" aria-hidden="true"></span>
+      <span class="eyebrow">Free Custom Growth Plan</span>
+      <h2 id="contact-title">Find out what's holding your business <span class="serif accent">back.</span></h2>
+      <p class="lead">We analyze 5 areas of your business and show you exactly where to start.</p>
+      <ul class="areas" role="list" aria-label="What your Growth Plan analyzes">
+        <li><i>01</i><b>Visibility</b><span>Google, website and local presence</span></li>
+        <li><i>02</i><b>Trust</b><span>Brand, reviews and social proof</span></li>
+        <li><i>03</i><b>Acquisition</b><span>How new customers find and reach you</span></li>
+        <li><i>04</i><b>Conversion</b><span>What happens after a lead comes in</span></li>
+        <li><i>05</i><b>Efficiency</b><span>Manual work and automation opportunities</span></li>
+      </ul>
+      <!-- Monthly capacity: 7 Growth Plans. OPTIONAL: to also show real remaining spots, set data-left="N" (0-7). Leave empty to hide the count. -->
+      <div class="spots" data-total="7" data-left="">
+        <div class="spots__top"><span data-spots-label data-no-i18n>This month's Growth Plans close in</span><b data-spots-count hidden><span data-spots-left></span> of 7 open</b></div>
+        <div class="countdown" aria-live="off"><div><b data-cd="d">--</b><span>days</span></div><div><b data-cd="h">--</b><span>hours</span></div><div><b data-cd="m">--</b><span>min</span></div><div><b data-cd="s">--</b><span>sec</span></div></div>
+        <div class="spots__meter" aria-hidden="true" hidden></div>
+        <p>Only 7 plans a month, built by hand by our founders.</p>
+      </div>
+      <button type="button" class="btn btn--ghost leak-open" data-leak-open>Take the 60-second Growth Leak Check <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <ul class="contact__list" role="list">
+        <li><a href="tel:+17043904390"><svg aria-hidden="true"><use href="#i-phone"/></svg><span><small>Call</small><b>(704) 390-4390</b></span></a></li>
+        <li><a href="https://wa.me/17043904390" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg><span><small>WhatsApp</small><b>Message us</b></span></a></li>
+        <li><a href="mailto:growthsolutionsnova@gmail.com"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span><small>Email</small><b>growthsolutionsnova@gmail.com</b></span></a></li>
+        <li><div><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><small>Charlotte, NC · Office hours</small><b>Mon–Fri · 8 AM – 6 PM</b></span></div></li>
+      </ul>
+      <p class="founders-line">Built by <b>Quéren Barbosa</b> &amp; <b>David Velasco</b>. Business strategy meets technology.</p>
+    </div>
+
+    <div class="form reveal" style="--d:120ms" id="growth-form">
+      <!-- FORMSPREE: connected to form xljdvojz (growthsolutionsnova@gmail.com). To change it, replace the ID in action="" below. -->
+      <form action="https://formspree.io/f/xljdvojz" method="POST" novalidate>
+        <div class="form__head"><h3>Get your free Growth Plan</h3><p>Takes 60 seconds. We reply within one business day.</p></div>
+        <input type="hidden" name="_subject" value="New Growth Plan request — NOVA website">
+        <input type="hidden" name="leak_check" value="">
+        <label class="hp" aria-hidden="true">Leave empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+        <div class="form__leak" data-form-leak role="status" data-no-i18n></div>
+        <div class="form__grid">
+          <div class="f"><label for="f-name">Your name <span aria-hidden="true">*</span></label><input id="f-name" name="name" autocomplete="name" required minlength="2" aria-describedby="e-name"><div data-no-i18n class="f__err" id="e-name" aria-live="polite"></div></div>
+          <div class="f"><label for="f-biz">Business name <span aria-hidden="true">*</span></label><input id="f-biz" name="business" autocomplete="organization" required minlength="2" aria-describedby="e-biz"><div data-no-i18n class="f__err" id="e-biz" aria-live="polite"></div></div>
+          <div class="f"><label for="f-email">Email <span aria-hidden="true">*</span></label><input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email"><div data-no-i18n class="f__err" id="e-email" aria-live="polite"></div></div>
+          <div class="f"><label for="f-phone">Phone / WhatsApp <span aria-hidden="true">*</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required pattern="[0-9 +.\(\)\-]{7,}" aria-describedby="e-phone"><div data-no-i18n class="f__err" id="e-phone" aria-live="polite"></div></div>
+          <div class="f f--full"><label for="f-ind">Industry</label>
+            <select id="f-ind" name="industry"><option value="">Select your industry</option><option>Home services</option><option>Tree service / Landscaping</option><option>Cleaning</option><option>Remodeling / Construction</option><option>Concrete / Roofing / Painting</option><option>Auto detailing</option><option>Hospitality</option><option>Professional services</option><option>Retail / E-commerce</option><option>Other</option></select></div>
+          <fieldset class="f f--full"><legend>What's holding you back?</legend>
+            <div class="chips">
+              <label><input type="checkbox" name="challenges[]" value="Visibility"><span>Visibility</span></label>
+              <label><input type="checkbox" name="challenges[]" value="Trust"><span>Trust &amp; reviews</span></label>
+              <label><input type="checkbox" name="challenges[]" value="Acquisition"><span>Getting leads</span></label>
+              <label><input type="checkbox" name="challenges[]" value="Conversion"><span>Follow-up &amp; sales</span></label>
+              <label><input type="checkbox" name="challenges[]" value="Efficiency"><span>Manual work</span></label>
+              <label><input type="checkbox" name="challenges[]" value="Not sure"><span>Not sure</span></label>
+            </div>
+          </fieldset>
+          <div class="f f--full"><label for="f-msg">Anything else? <span class="muted" style="color:var(--text-muted);font-weight:400">(optional)</span></label><textarea id="f-msg" name="message" rows="4"></textarea></div>
+        </div>
+        <div class="form__foot">
+          <button class="btn btn--navy btn--block" type="submit"><span class="btn__spin" aria-hidden="true"></span><span class="btn__label" style="display:inline-flex;align-items:center;gap:10px">Get My Free Growth Plan <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+          <p class="form__status" role="alert" aria-live="assertive" data-no-i18n></p>
+          <small>No cost. No obligation. We never share your information.</small>
+        </div>
+      </form>
+      <div class="form__done" tabindex="-1">
+        <div class="form__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+        <h3>Request received.</h3>
+        <p class="muted">We'll reach out within one business day to start your Growth Plan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="leak-modal" id="leak-modal" role="dialog" aria-modal="true" aria-label="Growth Leak Check" hidden>
+  <div class="leak-modal__box">
+    <button type="button" class="leak-modal__close" data-leak-close aria-label="Close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+    <div class="quiz" id="leak-check" aria-labelledby="quiz-title">
+      <div class="quiz__head">
+        <div class="quiz__title" id="quiz-title">Growth Leak Check<small>5 questions · about 60 seconds</small></div>
+        <span class="quiz__count" data-quiz-count>Start</span>
+      </div>
+      <div class="quiz__progress" aria-hidden="true"><i data-quiz-bar></i></div>
+      <div class="quiz__body" data-quiz-body aria-live="polite">
+        <div class="quiz__step quiz__intro">
+          <div class="quiz__area">Quick self-diagnosis</div>
+          <p class="quiz__q">Where is your business leaking growth?</p>
+          <p>5 questions. See where to start.</p>
+          <div><button class="btn btn--navy" type="button" data-quiz-start>Start the Check <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div>
+        <a class="logo" href="#top" aria-label="NOVA Growth Solutions — back to top"><img class="logo__img" src="{{IMG_LOGO}}" width="560" height="177" alt="NOVA Growth Solutions"></a>
+        <p class="footer__tag">Strategy. Technology. Real Results.</p>
+        <p class="footer__about">Business growth partner for small and growing businesses. Charlotte, NC · U.S. &amp; Latin America.</p>
+      </div>
+      <nav aria-label="Solutions"><h2>Solutions</h2><ul role="list">
+        <li><a href="#digital-presence">Digital Presence</a></li><li><a href="#marketing">Marketing</a></li><li><a href="#sales">Sales</a></li><li><a href="#automation">AI &amp; Automation</a></li><li><a href="#software">Software &amp; Apps</a></li></ul></nav>
+      <nav aria-label="Company"><h2>Company</h2><ul role="list">
+        <li><a href="#work">Work</a></li><li><a href="#growth-plan">Free Growth Plan</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+      <div><h2>Contact</h2><ul role="list">
+        <li><a href="tel:+17043904390">(704) 390-4390</a></li>
+        <li><a href="https://wa.me/17043904390" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href="mailto:growthsolutionsnova@gmail.com">growthsolutionsnova@gmail.com</a></li>
+        <li>Charlotte, North Carolina</li>
+        <li>Mon–Fri · 8 AM – 6 PM</li>
+        <!-- SOCIAL: add <li><a href="https://instagram.com/...">Instagram</a></li> etc. when accounts exist -->
+      </ul></div>
+    </div>
+    <div class="footer__bottom">
+      <p>© <span data-year>2026</span> NOVA Growth Solutions. All rights reserved.</p>
+      <nav aria-label="Legal"><a href="sitemap.xml">Sitemap</a></nav>
+    </div>
+  </div>
+<a class="wa-float" href="https://wa.me/17043904390" target="_blank" rel="noopener" aria-label="Chat with NOVA on WhatsApp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a>
+</footer>
+
+<!-- Floating actions -->
+<nav class="mbar" aria-label="Quick contact">
+  <a href="tel:+17043904390"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call</a>
+  <a class="mbar__wa" href="https://wa.me/17043904390" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a>
+  <a class="mbar__cta" href="#contact"><span data-t="Free Growth Plan (short)">Free Growth Plan</span></a>
+</nav>

@@ -1,0 +1,280 @@
+
+<style>
+/* ============ CAPABILITIES MARQUEE ============ */
+.marquee{position:relative;overflow:hidden;padding-block:22px 28px;border-block:1px solid var(--border);background:var(--surface-2)}
+.marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:clamp(40px,10vw,160px);z-index:2;pointer-events:none}
+.marquee::before{left:0;background:linear-gradient(90deg,var(--surface-2),transparent)}
+.marquee::after{right:0;background:linear-gradient(-90deg,var(--surface-2),transparent)}
+.marquee__label{position:relative;z-index:3;display:table;margin:0 auto 18px;padding:5px 14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-pill);font-size:.6875rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-text);white-space:nowrap}
+.marquee__track{display:flex;width:max-content;animation:marquee 48s linear infinite}
+.marquee:hover .marquee__track,.marquee:focus-within .marquee__track{animation-play-state:paused}
+.marquee__list{display:flex;align-items:center;list-style:none;padding:0;flex-shrink:0}
+.marquee__list li{display:flex;align-items:center;gap:clamp(24px,3vw,44px);padding-right:clamp(24px,3vw,44px);font-family:var(--font-display);font-size:clamp(1.125rem,1rem + .6vw,1.5rem);font-weight:500;letter-spacing:-.01em;white-space:nowrap;color:var(--text)}
+.marquee__list li::after{content:"";width:8px;height:8px;background:var(--gold-500);transform:rotate(45deg)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marquee__track{animation:none;flex-wrap:wrap;width:auto;justify-content:center}.marquee__list[aria-hidden]{display:none}}
+
+/* ============ PROBLEM ============ */
+.problem__cards{margin-bottom:var(--s-12)}
+.pcard{display:grid;gap:16px;align-content:start}
+.pcard__icon{width:44px;height:44px;display:grid;place-items:center;border-radius:var(--r-md);background:color-mix(in srgb,var(--gold-500) 14%,transparent);color:var(--accent-text)}
+.pcard__icon svg{width:22px;height:22px}
+.pcard h3{font-size:var(--fs-h5);line-height:1.3}
+.pcard h3 span{display:block;color:var(--text-muted);font-weight:500}
+.pcard p{font-size:var(--fs-small);color:var(--text-muted)}
+
+/* Growth system flow */
+.flow{position:relative;padding:clamp(24px,4vw,56px);border-radius:var(--r-lg);background:var(--inverse-bg);color:var(--inverse-text);overflow:hidden;isolation:isolate}
+.flow::before{content:"";position:absolute;right:-60px;top:-40%;width:48px;height:180%;background:linear-gradient(180deg,transparent,rgba(201,169,106,.35),transparent);transform:skewX(-24deg);z-index:-1}
+.flow__head{display:grid;gap:12px;margin-bottom:var(--s-6)}
+@media (min-width:1024px){.flow__head{grid-template-columns:1fr 1fr;align-items:end;gap:var(--s-6)}}
+.flow__head h3{font-size:var(--fs-h3);color:#FBF7F0}
+.flow__head p{color:var(--inverse-muted)}
+.flow__steps{list-style:none;padding:0;position:relative;display:grid;gap:0}
+.flow__step{position:relative;display:grid;grid-template-columns:40px 1fr;gap:16px;align-items:center;padding-block:10px}
+.flow__node{position:relative;z-index:1;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:.75rem;font-weight:600;font-variant-numeric:tabular-nums;border:1px solid rgba(201,169,106,.45);background:var(--inverse-bg);color:var(--gold-400);transition:background-color var(--t-slow) var(--ease),color var(--t-slow) var(--ease),box-shadow var(--t-slow) var(--ease)}
+.flow__name{font-weight:600;font-size:.9375rem;color:#FBF7F0}
+.flow__leak{display:inline-flex;align-items:center;gap:6px;margin-left:10px;font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-400)}
+.flow__leak::before{content:"";width:6px;height:9px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--gold-400)}
+.flow__line{position:absolute;left:19.5px;top:30px;bottom:30px;width:1px;background:rgba(201,169,106,.25)}
+.flow__line i{position:absolute;inset:0;background:linear-gradient(var(--gold-400),var(--gold-500));transform-origin:top;transform:scaleY(var(--p,1))}
+.flow__step.is-leak .flow__node{border-style:dashed;border-color:var(--gold-400)}
+.flow.is-in .flow__node{background:var(--gold-500);color:var(--navy-900);box-shadow:0 0 0 6px rgba(201,169,106,.12)}
+.js .flow .flow__node{transition-delay:calc(var(--i) * 110ms)}
+.js .flow:not(.is-in) .flow__line i{--p:0}
+.flow__line i{transition:transform 1.2s var(--ease)}
+.flow__note{margin-top:var(--s-4);padding-top:var(--s-3);border-top:1px solid rgba(201,169,106,.2);display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;color:var(--inverse-muted);font-size:var(--fs-small)}
+.flow__note strong{color:#FBF7F0;font-weight:600}
+@media (min-width:1024px){
+  .flow__steps{grid-template-columns:repeat(9,1fr);gap:8px}
+  .flow__step{grid-template-columns:1fr;justify-items:center;text-align:center;gap:14px;padding:0}
+  .flow__node{width:48px;height:48px;font-size:.8125rem}
+  .flow__name{font-size:.875rem}
+  .flow__leak{margin:0;position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);white-space:nowrap}
+  .flow__line{left:5.5%;right:5.5%;top:24px;bottom:auto;width:auto;height:1px}
+  .flow__line i{transform-origin:left;transform:scaleX(var(--p,1))}
+  .flow__steps{padding-bottom:36px}
+}
+
+/* ============ SOLUTIONS / PILLARS ============ */
+.pillars{display:grid;gap:var(--s-3)}
+@media (min-width:900px){.pillars{grid-template-columns:repeat(2,1fr);gap:var(--s-4)}}
+.pillar{display:grid;gap:var(--s-3);align-content:start;padding:clamp(24px,3vw,40px)}
+.pillar__top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.pillar__num{font-family:var(--font-serif);font-style:italic;font-size:2.5rem;line-height:1;color:var(--border-strong);transition:color var(--t-med) var(--ease)}
+.pillar:hover .pillar__num{color:var(--accent)}
+.pillar__icon{width:60px;height:60px;display:grid;place-items:center;border-radius:var(--r-md);background:var(--inverse-bg);color:var(--gold-400);flex-shrink:0;transition:transform var(--t-med) var(--ease)}
+.pillar:hover .pillar__icon{transform:rotate(-6deg) scale(1.05)}
+.pillar__icon svg{width:30px;height:30px;overflow:visible}
+.anim-icon path,.anim-icon circle,.anim-icon rect,.anim-icon line,.anim-icon polyline{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.pillar__kicker{font-family:var(--font-display);font-size:.8125rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-text)}
+.pillar h3{font-size:var(--fs-h3);margin-top:6px}
+.pillar__q{font-family:var(--font-serif);font-style:italic;font-size:1.1875rem;line-height:1.45;color:var(--text);border-left:2px solid var(--gold-500);padding-left:16px}
+.pillar__desc{color:var(--text-muted)}
+.checks{list-style:none;padding:0;display:grid;gap:10px}
+.checks li{display:grid;grid-template-columns:20px 1fr;gap:12px;font-size:var(--fs-small);line-height:1.5}
+.checks li::before{content:"";width:20px;height:20px;margin-top:1px;border-radius:50%;background:color-mix(in srgb,var(--gold-500) 16%,transparent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m6 10.5 2.5 2.5L14 7.5' fill='none' stroke='%239C7A3E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+@media (prefers-color-scheme:dark){.checks li::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m6 10.5 2.5 2.5L14 7.5' fill='none' stroke='%23D4B87E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}}
+.pillar__foot{padding-top:var(--s-3);border-top:1px solid var(--border);margin-top:auto}
+
+@media (prefers-color-scheme:dark){.flow,.software{border:1px solid rgba(201,169,106,.22);background:#0B2243}.pillar__icon{background:rgba(201,169,106,.1)}}
+
+/* ============ MINI VISUALS (problem + pillars) ============ */
+.pvis{position:relative;height:120px;display:grid;align-content:center;border-radius:var(--r-md);background:var(--surface-2);border:1px solid var(--border);overflow:hidden;padding:16px;font-size:.75rem;color:var(--text)}
+.pvis--lg{display:block;height:184px;padding:18px 20px;background:linear-gradient(160deg,var(--surface-2),color-mix(in srgb,var(--gold-500) 7%,var(--surface-2)))}
+.pvis b{font-weight:600}
+.pv-muted{color:var(--text-muted)}
+/* funnel */
+.fun{display:grid;gap:7px}
+.fun div{display:flex;justify-content:space-between;align-items:center;height:24px;padding:0 10px;border-radius:4px;background:color-mix(in srgb,var(--navy-800) 12%,transparent);margin-inline:auto;width:var(--w);font-variant-numeric:tabular-nums}
+.fun div:last-child{background:var(--error);color:#fff}
+@media (prefers-color-scheme:dark){.fun div{background:rgba(245,239,227,.1)}}
+/* chat */
+.chat{display:grid;gap:8px}
+.chat__b{justify-self:start;max-width:88%;padding:9px 12px;border-radius:12px 12px 12px 3px;background:var(--surface);border:1px solid var(--border);font-size:.8125rem}
+.chat__meta{display:flex;align-items:center;gap:6px;color:var(--error);font-weight:600}
+@media (prefers-color-scheme:dark){.chat__meta{color:#FF8A80}.chat__meta::before{background:#FF8A80}}
+.chat__meta::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--error);animation:pulse 2s infinite}
+.chat__b--2{opacity:.5}
+/* clock */
+.clk{display:flex;align-items:center;gap:16px;height:100%}
+.clk svg{width:64px;height:64px;flex-shrink:0;transform:rotate(-90deg)}
+.clk__big{font-family:var(--font-display);font-size:2.25rem;font-weight:600;letter-spacing:-.03em;line-height:1}
+/* reviews */
+.rev{display:grid;gap:8px}
+.rev__row{display:grid;grid-template-columns:auto auto auto 1fr;align-items:center;gap:3px;padding:7px 9px;border-radius:6px;background:var(--surface);border:1px solid var(--border);font-size:.6875rem}
+.rev__sc{font-family:var(--font-display);font-weight:700;font-size:.9375rem;letter-spacing:-.02em;margin-left:4px}
+.rev__sc--low{color:var(--text-muted)}
+.rev__st{color:var(--gold-500);font-size:.8125rem}.rev__st i{font-style:normal;color:var(--border-strong)}
+.rev__st--low{opacity:.55}
+.rev{container-type:inline-size}
+@container (max-width:160px){.rev__n>span{display:none}}
+.rev__n{text-align:right;color:var(--text-muted);white-space:nowrap;padding-left:6px}.rev__n strong{color:var(--text)}
+.rev__row--them{border:1.5px solid var(--gold-500)}
+.stars{color:var(--gold-500);letter-spacing:1px}
+.stars--low{color:var(--text-muted)}
+/* google result */
+.gsearch{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:99px;background:var(--surface);border:1px solid var(--border);margin-bottom:10px;color:var(--text-muted)}
+.gsearch svg{width:13px;height:13px}
+.gres{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--gold-500);box-shadow:0 8px 20px rgba(11,37,69,.08)}
+.gres__pin{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--navy-800);color:var(--gold-400);font-weight:700}
+.gres__name{font-weight:600;font-size:.8125rem}
+.gres__btn{padding:5px 10px;border-radius:99px;background:var(--navy-800);color:var(--sand);font-weight:600}
+@media (prefers-color-scheme:dark){.gres__pin,.gres__btn{background:var(--gold-500);color:var(--navy-900)}}
+.gres--2{margin-top:8px;border-color:var(--border);box-shadow:none;opacity:.45}
+/* bars chart */
+.chart{display:flex;flex-direction:column;height:100%}
+.chart__head{display:flex;justify-content:space-between;margin-bottom:8px}
+.chart__up{color:var(--success);font-weight:600}
+@media (prefers-color-scheme:dark){.chart__up{color:#6FCF97}}
+.chart__bars{flex:1;display:flex;align-items:flex-end;gap:8px}
+.chart__bars i{flex:1;height:var(--h);border-radius:3px 3px 0 0;background:color-mix(in srgb,var(--navy-800) 18%,transparent)}
+.chart__bars i:nth-last-child(-n+3){background:linear-gradient(var(--gold-400),var(--gold-500))}
+@media (prefers-color-scheme:dark){.chart__bars i{background:rgba(245,239,227,.14)}}
+.js .chart__bars i{transform:scaleY(0);transform-origin:bottom;transition:transform .9s var(--ease);transition-delay:calc(var(--n) * 90ms + 200ms)}
+.js .is-in .chart__bars i{transform:none}
+/* pipeline */
+.pipe{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;height:100%}
+.pipe__col{display:flex;flex-direction:column;gap:5px;padding:8px;border-radius:6px;background:color-mix(in srgb,var(--navy-800) 6%,transparent)}
+@media (prefers-color-scheme:dark){.pipe__col{background:rgba(245,239,227,.05)}}
+.pipe__col>span{font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px}
+.pipe__col i{height:18px;border-radius:4px;background:var(--surface);border:1px solid var(--border)}
+.pipe__col--won{background:color-mix(in srgb,var(--gold-500) 16%,transparent)}
+.pipe__col--won i{border-color:var(--gold-500);background:color-mix(in srgb,var(--gold-500) 22%,var(--surface))}
+.js .pipe__col--won i{opacity:0;transform:translateX(-14px);transition:opacity .5s var(--ease),transform .5s var(--ease);transition-delay:calc(var(--n) * 250ms + 500ms)}
+.js .is-in .pipe__col--won i{opacity:1;transform:none}
+/* workflow */
+.wf{display:flex;align-items:center;justify-content:space-between;height:100%;gap:4px}
+.wf__n{display:grid;gap:4px;justify-items:center;text-align:center;flex:1}
+.wf__n i{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--navy-800);color:var(--gold-400);font-style:normal;font-size:1rem}
+@media (prefers-color-scheme:dark){.wf__n i{background:var(--gold-500);color:var(--navy-900)}}
+.wf__n small{font-size:.6875rem;color:var(--text-muted)}
+.wf__l{flex:0 0 18%;height:2px;background:repeating-linear-gradient(90deg,var(--gold-500) 0 6px,transparent 6px 11px);background-size:22px 2px;animation:flowDash 1s linear infinite}
+@keyframes flowDash{to{background-position:22px 0}}
+/* pillar tags */
+.ptags{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.ptags li{padding:6px 12px;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);font-size:.8125rem;font-weight:500}
+
+/* Software band */
+.software{margin-top:var(--s-4);display:grid;gap:var(--s-6);align-items:center;padding:clamp(28px,4vw,56px);border-radius:var(--r-lg);background:var(--inverse-bg);color:var(--inverse-text);position:relative;overflow:hidden;isolation:isolate}
+@media (min-width:1024px){.software{grid-template-columns:1.1fr .9fr}}
+.software .pillar__kicker{color:var(--gold-400)}
+.software h3{font-size:var(--fs-h3);color:#FBF7F0;margin-top:6px}
+.software p{color:var(--inverse-muted)}
+.software__proof{display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:var(--r-md);background:rgba(201,169,106,.08);border:1px solid rgba(201,169,106,.22);color:var(--sand);font-size:var(--fs-small)}
+.software__proof b{color:var(--gold-400);font-family:var(--font-display);font-size:1.25rem;white-space:nowrap}
+.appwin{border-radius:var(--r-md);background:rgba(255,255,255,.04);border:1px solid rgba(201,169,106,.25);box-shadow:0 30px 60px rgba(0,0,0,.3);overflow:hidden;font-size:.75rem}
+.appwin__bar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid rgba(201,169,106,.18)}
+.appwin__bar i{width:8px;height:8px;border-radius:50%;background:rgba(245,239,227,.2)}
+.appwin__body{display:grid;grid-template-columns:90px 1fr;min-height:200px}
+.appwin__side{border-right:1px solid rgba(201,169,106,.15);padding:12px;display:grid;gap:8px;align-content:start}
+.appwin__side i{height:8px;border-radius:4px;background:rgba(245,239,227,.12)}
+.appwin__side i:first-child{background:var(--gold-500);width:70%}
+.appwin__main{padding:14px;display:grid;gap:10px;align-content:start}
+.appwin__row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;background:rgba(245,239,227,.05);color:var(--sand)}
+.appwin__row span:last-child{font-size:.6875rem;padding:3px 8px;border-radius:99px;background:rgba(201,169,106,.18);color:var(--gold-400)}
+.js .appwin__row{opacity:0;transform:translateX(12px);transition:opacity var(--t-slow) var(--ease),transform var(--t-slow) var(--ease);transition-delay:calc(var(--i) * 140ms + 300ms)}
+.js .is-in .appwin__row{opacity:1;transform:none}
+</style>
+
+
+
+<!-- ============ SOLUTIONS ============ -->
+<section class="section section--surface" id="solutions" aria-labelledby="solutions-title">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Solutions</span>
+      <h2 id="solutions-title">One growth system. <span class="serif accent">Four pillars.</span></h2>
+      <p class="lead">We start with the pillar that's holding you back most.</p>
+    </div>
+
+    <div class="pillars">
+      <!-- 01 -->
+      <article class="card pillar reveal" id="digital-presence" style="--d:0ms">
+        <div class="pvis pvis--lg" aria-hidden="true"><div class="gsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>tree service near me</div><div class="gres"><span class="gres__pin">1</span><span><span class="gres__name">Your Business</span><br><span class="stars">★★★★★</span> <span class="pv-muted">4.9 · Open now</span></span><span class="gres__btn">Call</span></div><div class="gres gres--2"><span class="gres__pin">2</span><span><span class="gres__name">Competitor</span><br><span class="pv-muted">3.8 · 12 reviews</span></span><span></span></div></div>
+        <div class="pillar__top">
+          <div><div class="pillar__kicker">Get Found.</div><h3>Digital Presence</h3></div>
+          <div class="pillar__icon" aria-hidden="true"><svg class="anim-icon" viewBox="0 0 32 32"><path pathLength="1" d="M16 29s9-8 9-15a9 9 0 1 0-18 0c0 7 9 15 9 15z"/><circle pathLength="1" style="--k:1" cx="16" cy="14" r="3.2"/><path pathLength="1" style="--k:2" d="M27.5 5.5a14 14 0 0 1 2 5M4.5 5.5a14 14 0 0 0-2 5"/></svg></div>
+        </div>
+        <p class="pillar__q">Do customers find you, and trust what they see?</p>
+        <ul class="ptags" role="list">
+          <li>Websites that generate leads</li>
+          <li>Google Maps &amp; local SEO</li>
+          <li>Reviews &amp; reputation</li>
+        </ul>
+        <div class="pillar__foot"><a class="link-arrow" href="#growth-plan" data-focus="Visibility">Get found faster <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      </article>
+
+      <!-- 02 -->
+      <article class="card pillar reveal" id="marketing" style="--d:100ms">
+        <div class="pvis pvis--lg" aria-hidden="true"><div class="chart"><div class="chart__head"><b>New leads / month</b><span class="chart__up">▲ trending up</span></div><div class="chart__bars"><i style="--h:22%;--n:0"></i><i style="--h:28%;--n:1"></i><i style="--h:26%;--n:2"></i><i style="--h:38%;--n:3"></i><i style="--h:52%;--n:4"></i><i style="--h:70%;--n:5"></i><i style="--h:92%;--n:6"></i></div></div></div>
+        <div class="pillar__top">
+          <div><div class="pillar__kicker">Get More Opportunities.</div><h3>Marketing &amp; Customer Acquisition</h3></div>
+          <div class="pillar__icon" aria-hidden="true"><svg class="anim-icon" viewBox="0 0 32 32"><circle pathLength="1" cx="16" cy="16" r="12"/><circle pathLength="1" style="--k:1" cx="16" cy="16" r="7"/><circle pathLength="1" style="--k:2" cx="16" cy="16" r="2"/><path pathLength="1" style="--k:3" d="M16 16 28 4m0 0h-5m5 0v5"/></svg></div>
+        </div>
+        <p class="pillar__q">How do more of the right people discover you?</p>
+        <ul class="ptags" role="list">
+          <li>Offers &amp; positioning</li>
+          <li>Local campaigns &amp; lead generation</li>
+          <li>Social media &amp; content</li>
+        </ul>
+        <div class="pillar__foot"><a class="link-arrow" href="#growth-plan" data-focus="Acquisition">Get more leads <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      </article>
+
+      <!-- 03 -->
+      <article class="card pillar reveal" id="sales" style="--d:0ms">
+        <div class="pvis pvis--lg" aria-hidden="true"><div class="pipe"><div class="pipe__col"><span>New</span><i></i><i></i><i></i></div><div class="pipe__col"><span>Follow-up</span><i></i><i></i></div><div class="pipe__col pipe__col--won"><span>Won</span><i style="--n:0"></i><i style="--n:1"></i><i style="--n:2"></i><i style="--n:3"></i></div></div></div>
+        <div class="pillar__top">
+          <div><div class="pillar__kicker">Convert More Customers.</div><h3>Sales &amp; Customer Conversion</h3></div>
+          <div class="pillar__icon" aria-hidden="true"><svg class="anim-icon" viewBox="0 0 32 32"><path pathLength="1" d="M4 26h24"/><path pathLength="1" style="--k:1" d="M5 21l7-7 5 4 10-10"/><path pathLength="1" style="--k:2" d="M22 8h5v5"/></svg></div>
+        </div>
+        <p class="pillar__q">How many of your leads actually become customers?</p>
+        <ul class="ptags" role="list">
+          <li>CRM &amp; pipeline</li>
+          <li>Fast follow-up systems</li>
+          <li>Retention &amp; referrals</li>
+        </ul>
+        <div class="pillar__foot"><a class="link-arrow" href="#growth-plan" data-focus="Conversion">Convert more customers <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      </article>
+
+      <!-- 04 -->
+      <article class="card pillar reveal" id="automation" style="--d:100ms">
+        <div class="pvis pvis--lg" aria-hidden="true"><div class="wf"><div class="wf__n"><i>✉</i><b>New lead</b><small>9:02 am</small></div><span class="wf__l"></span><div class="wf__n"><i>⚡</i><b>Auto reply</b><small>9:03 am</small></div><span class="wf__l"></span><div class="wf__n"><i>✓</i><b>Booked</b><small>9:20 am</small></div></div></div>
+        <div class="pillar__top">
+          <div><div class="pillar__kicker">Work Smarter.</div><h3>AI, Automation &amp; Business Systems</h3></div>
+          <div class="pillar__icon" aria-hidden="true"><svg class="anim-icon" viewBox="0 0 32 32"><rect pathLength="1" x="3" y="4" width="9" height="7" rx="1.5"/><rect pathLength="1" style="--k:1" x="20" y="12.5" width="9" height="7" rx="1.5"/><rect pathLength="1" style="--k:2" x="3" y="21" width="9" height="7" rx="1.5"/><path pathLength="1" style="--k:3" d="M12 7.5h3.5a2 2 0 0 1 2 2V14a2 2 0 0 0 2 2M12 24.5h3.5a2 2 0 0 0 2-2V18a2 2 0 0 1 2-2"/></svg></div>
+        </div>
+        <p class="pillar__q">Which tasks eat your time every week?</p>
+        <ul class="ptags" role="list">
+          <li>Automatic follow-up &amp; reminders</li>
+          <li>Scheduling workflows</li>
+          <li>Connected tools &amp; dashboards</li>
+        </ul>
+        <div class="pillar__foot"><a class="link-arrow" href="#growth-plan" data-focus="Efficiency">Automate my busywork <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      </article>
+    </div>
+
+    <!-- 05 Software -->
+    <article class="software reveal" id="software" aria-labelledby="software-title">
+      <div class="stack" style="gap:20px">
+        <div><div class="pillar__kicker">05 · Build what doesn't exist yet.</div><h3 id="software-title">Custom Software &amp; Apps</h3></div>
+        <p>When off-the-shelf tools don't fit, we build them: internal systems, web and mobile apps.</p>
+        <div class="software__proof"><b>4h → 5m</b><span>Daily housekeeping assignments for an Orlando resort, automated.</span></div>
+        <div><a class="btn btn--gold" href="#growth-plan" data-focus="Efficiency">Tell Us What You Need Built <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      </div>
+      <div class="appwin" aria-hidden="true">
+        <div class="appwin__bar"><i></i><i></i><i></i></div>
+        <div class="appwin__body">
+          <div class="appwin__side"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="appwin__main">
+            <div class="appwin__row" style="--i:0"><span>Room 204 · Checkout</span><span>Maria</span></div>
+            <div class="appwin__row" style="--i:1"><span>Room 311 · Stayover</span><span>Ana</span></div>
+            <div class="appwin__row" style="--i:2"><span>Room 118 · Deep clean</span><span>Luis</span></div>
+            <div class="appwin__row" style="--i:3"><span>Room 405 · Checkout</span><span>Carmen</span></div>
+            <div class="appwin__row" style="--i:4"><span>All rooms assigned</span><span>00:05</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
