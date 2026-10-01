@@ -1,4 +1,0 @@
-/* ============ FONTS (embedded, latin subset) ============ */
-@font-face{font-family:"Inter";src:url(data:font/woff2;base64,{{FONT_INTER}}) format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url(data:font/woff2;base64,{{FONT_CG}}) format("woff2");font-weight:300 700;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url(data:font/woff2;base64,{{FONT_CG_I}}) format("woff2");font-weight:300 700;font-style:italic;font-display:swap}
